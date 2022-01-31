@@ -14,5 +14,5 @@ version_build = int(v[2])
 
 main = rule {
     version_major > 0 or
-    version_major is = and version_minor >= 14 and version_build >= 0
+    version_major is 0 and version_minor >= 14 and version_build >= 0
 }
