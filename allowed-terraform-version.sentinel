@@ -1,5 +1,18 @@
-import "tfplan"
+#import "tfplan"
+#
+#main = rule {
+#  tfplan.terraform_version matches "^(0\\.1(4|5)|1\\.0)\\.\\d+$"
+#}
+
+import "tfplan/v2" as tfplan
+import "strings"
+
+v = strings.split(tfplan.terraform_version, ".")
+version_major = int(v[0])
+version_minor = int(v[1])
+version_build = int(v[2])
 
 main = rule {
-  tfplan.terraform_version matches "^(0\\.1(4|5)|1\\.0)\\.\\d+$"
+    version_major > 0 or
+    version_major is = and version_minor >= 14 and version_build >= 0
 }
